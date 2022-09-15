@@ -7,43 +7,23 @@ import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    public static UserDao userDao;
+    private UserDao userDao = new UserDaoJDBCImpl();
 
-    public UserServiceImpl() {
-        userDao = new UserDaoJDBCImpl();
-    }
+    public void createUsersTable() {userDao.createUsersTable();}
 
-    public void createUsersTable() {
+    public void dropUsersTable() {userDao.dropUsersTable();}
 
-    }
+    public void saveUser(String name, String lastName, byte age) {userDao.saveUser(name, lastName, age);}
 
-    public void dropUsersTable() {
+    public void removeUserById(long id) {userDao.removeUserById(id);}
 
-
-    }
-
-    public void saveUser(String name, String lastName, byte age) {
+    public List<User> getAllUsers() { return userDao.getAllUsers();}
 
 
-    }
-
-    public void removeUserById(long id) {
-
-
-    }
-
-    public List<User> getAllUsers() {
-
-        return null;
-    }
-
-
-    public void cleanUsersTable() {
-
-
-    }
+    public void cleanUsersTable() { userDao.cleanUsersTable();}
 }
