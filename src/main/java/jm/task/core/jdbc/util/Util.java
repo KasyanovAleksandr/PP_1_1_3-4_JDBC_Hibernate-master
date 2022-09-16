@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import static java.sql.DriverManager.getConnection;
 
+//- не надо реализовывать синглтон для коннекшена - для каждого запроса свой коннекшн - ОК, синглтон родился после Трегулова :)
 
 public class Util {
     // реализуйте настройку соеденения с БД
@@ -13,16 +14,12 @@ public class Util {
     private static final String DB_PASSWORD = "rootroot";
     private static final String DB_URL = "jdbc:mysql://localhost:3306/test";
 
-    private static Connection connection;
 
     public static Connection getConnection() {
-        if (connection == null) {
             try {
-                connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+                return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        }
-        return connection;
     }
 }
