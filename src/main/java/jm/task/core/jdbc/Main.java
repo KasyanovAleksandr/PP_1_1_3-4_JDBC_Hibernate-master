@@ -1,6 +1,7 @@
 package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.dao.UserDao;
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserService;
@@ -27,9 +28,13 @@ public class Main {
         System.out.println("Таблица создана");
 
         userService.saveUser(userTest[0][0], userTest[0][1], (byte) Integer.parseInt(userTest[0][2]));
+        System.out.println("Первый пошел в БД");
         userService.saveUser(userTest[1][0], userTest[1][1], (byte) Integer.parseInt(userTest[1][2]));
+        System.out.println("Второй пошел в БД");
         userService.saveUser(userTest[2][0], userTest[2][1], (byte) Integer.parseInt(userTest[2][2]));
+        System.out.println("Третий пошел в БД");
         userService.saveUser(userTest[3][0], userTest[3][1], (byte) Integer.parseInt(userTest[3][2]));
+        System.out.println("Четвертый пошел в БД");
         System.out.println("Юзеры занесены в твблицу");
         List<User> users = userService.getAllUsers();
         System.out.println("Юзеры получены из таблицы, сейчас выведу...");
@@ -40,5 +45,7 @@ public class Main {
         System.out.println("Юзеры получены из таблицы, сейчас выведу...");
         System.out.println(users.toString());
         System.out.println("ХА-ХА-ХА! Их там нет.");
+
+
     }
 }

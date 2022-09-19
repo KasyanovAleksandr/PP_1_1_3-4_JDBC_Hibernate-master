@@ -2,6 +2,7 @@ package jm.task.core.jdbc.util;
 
 import jm.task.core.jdbc.model.User;
 import net.bytebuddy.asm.MemberSubstitution;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -17,6 +18,7 @@ public class Util {
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "rootroot";
     private static final String DB_URL = "jdbc:mysql://localhost:3306/test";
+    private static SessionFactory sessionFactory;
 
 
     public static Connection getConnection() {
@@ -28,14 +30,23 @@ public class Util {
     }
 
     public static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration();
-        Properties prop = new Properties();
-        prop.setProperty("hibernate.connection.url", DB_URL);
-        prop.setProperty("dialect", "org.hibernate.dialect.MySQL8Dialect");
-        prop.setProperty("hibernate.connection.username", DB_USERNAME);
-        prop.setProperty("hibernate.connection.password", DB_PASSWORD);
-        prop.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        SessionFactory sessionFactory = new Configuration().addProperties(prop).buildSessionFactory();
+        if (sessionFactory == null) {
+           try {
+               Properties prop = new Properties();
+               prop.setProperty("hibernate.connection.url", DB_URL);
+               prop.setProperty("dialect", "org.hibernate.dialect.MySQL8Dialect");
+               prop.setProperty("hibernate.connection.username", DB_USERNAME);
+               prop.setProperty("hibernate.connection.password", DB_PASSWORD);
+               SessionFactory sessionFactory = new Configuration()
+                       .addProperties(prop)
+                       .addAnnotatedClass(User.class)
+                       .buildSessionFactory();
+
+               return sessionFactory;
+           } catch (HibernateException e) {
+              throw new  RuntimeException(e);
+           }
+        }
 
         return sessionFactory;
     }
