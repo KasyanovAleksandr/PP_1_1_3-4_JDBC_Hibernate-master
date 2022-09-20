@@ -15,8 +15,6 @@ public class Main {
     private static final UserService userService = new UserServiceImpl();
     public static void main(String[] args) throws SQLException {
 
-        //тут надо создать экземпляр сервиса и пользоваться им - OK
-
         final UserService userService = new UserServiceImpl();
         String[][] userTest = {{"Шахбаз", "Шариф", "60"},
                 {"Сердар", "Бердымухамедов", "55"},

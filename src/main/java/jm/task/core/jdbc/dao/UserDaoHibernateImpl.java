@@ -72,8 +72,8 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
-        try(Session session = sessionFactory.openSession()) {
-            //нашел такой любопытный способ в интернете, но надо курить как он работает
+        /*  нашел такой любопытный способ в интернете, но надо курить как он работает
+            try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery cq = cb.createQuery(User.class);
@@ -86,6 +86,19 @@ public class UserDaoHibernateImpl implements UserDao {
             e.printStackTrace();
         }
             return userList;
+
+         */
+
+        //Классика
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            userList = session.createSQLQuery("SELECT * FROM users").addEntity(User.class).list();
+            session.getTransaction().commit();
+            return userList;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return userList;
     }
 
     @Override
@@ -95,6 +108,8 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createSQLQuery("TRUNCATE TABLE users").executeUpdate();
             session.getTransaction().commit();
 
+        } catch (HibernateException e) {
+            e.printStackTrace();
         }
 
     }
