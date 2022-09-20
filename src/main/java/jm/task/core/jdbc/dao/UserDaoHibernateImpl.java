@@ -30,7 +30,6 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (HibernateException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -42,7 +41,6 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (HibernateException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -54,7 +52,6 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (HibernateException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -66,7 +63,6 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (HibernateException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -111,6 +107,5 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (HibernateException e) {
             e.printStackTrace();
         }
-
     }
 }
